@@ -47,6 +47,26 @@ def readFile():
             print eachLine,  #一次性读入所有行，再一行一行输出（使用逗号“，”来抑制自动生成的换行符）
         fobj.close()
 
+def createFile_unicode(fileName):
+    codec = 'utf-8'
+    file = 'unicode.txt'
+    hello_out = u"Hello world\nPython"
+    bytes_out = hello_out.encode(codec)
+    f = open(fileName, 'w')
+    f.write(bytes_out)
+    f.close()
+
+def readFile_unicode(fileName):
+    codec = 'utf-8'
+    f = open(fileName, 'r')
+    bytes_in = f.read()
+    f.close()
+    hello_in = bytes_in.decode(codec)
+    print hello_in
+
 if __name__ == '__main__':
     # createFile()
-    readFile()
+    # readFile()
+    uniFileName = 'unicode.txt'
+    createFile_unicode(uniFileName)
+    readFile_unicode(uniFileName)

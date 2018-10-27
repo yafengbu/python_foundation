@@ -9,7 +9,7 @@
 @file: 2list_dict.py
 @time: 2018/10/27 22:05
 @author: Kyod
-@description: 基础类型学习（String、Number、List、Tuple、Dict）
+@description: 基础类型学习（String、Number、List、Tuple、Dict、Set）
 """
 
 def func_string():
@@ -125,13 +125,33 @@ def func_dict():
     for k, v in zip(bDict.keys(), bDict.values()):
         print k, v
 
+def func_set():
+    setInst = set('cheeseshop')
+    frozensetInst = frozenset('bookshop')
+    print "setInst = ", setInst # >> setInst =  set(['c', 'e', 'h', 'o', 'p', 's'])
+    print "frozensetInst = ", frozensetInst # >> frozensetInst =  frozenset(['b', 'h', 'k', 'o', 'p', 's'])
+
+    print setInst.difference(frozensetInst) # >>  set(['c', 'e'])
+    print setInst - frozensetInst # >> set(['c', 'e'])
+
+    f = open('test2.txt', 'w')
+    for i in range(5):
+        f.write('%d\n' % i)
+    f.close()
+
+    f = open('test2.txt', 'r')
+    print set(f)
+    f.close()
+
 if __name__ == '__main__':
     # func_string()
-    func_number()
+    # func_number()
     # func_list()
     # func_tuple()
     # func_dict()
-    print '==============range()经常和len()一起用于字符串索引================'
-    foo = 'abcd'
-    for i in range(len(foo)):
-        print foo[i], '(%d)' % i
+    func_set()
+
+    # print '==============range()经常和len()一起用于字符串索引================'
+    # foo = 'abcd'
+    # for i in range(len(foo)):
+    #     print foo[i], '(%d)' % i
