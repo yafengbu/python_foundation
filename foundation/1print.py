@@ -8,7 +8,7 @@
 @software: PyCharm Community Edition
 @file: 1print.py
 @time: 2018/10/27 20:48
-@author: dell
+@author: Kyod
 @description: print语句的学习
 """
 import sys

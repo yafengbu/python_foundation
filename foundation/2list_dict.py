@@ -8,7 +8,7 @@
 @software: PyCharm Community Edition
 @file: 2list_dict.py
 @time: 2018/10/27 22:05
-@author: dell
+@author: Kyod
 @description: 基础类型学习（String、Number、List、Tuple、Dict）
 """
 
