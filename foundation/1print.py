@@ -15,7 +15,7 @@ import sys
 import os
 
 def func():
-    str1 = u'卜亚风,'
+    str1 = u'小明,'
     str2 = 'welcome to you.'
     print str1, str2
     print "%s is number %d." % (str2, 1)
@@ -53,9 +53,9 @@ def func4():
         outFile.close()
 
 if __name__ == '__main__':
-    # func()
+    func()
     # print '==========================='
     # func2()
     # print '=' * 27
     # fuc3()
-    func4()
+    # func4()

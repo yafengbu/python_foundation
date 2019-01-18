@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<content>
+    <section name="Product">
+        <param name="PRODUCT_NAME" type="string" value="SimuNE" comment="Product Name" />
+        <param name="VERSION" type="string" value="SimuNE V3R003C001" comment="Version" />
+        <param name="RELEASE_DATE" type="string" value="2019.1.18" comment="Release Date" />
+        <param name="dynamic_networking" type="string" value="0" comment="0表示不是动态组网，1表示使用，2表示不使用动态组网，但是保留控制器的功能" />
+        <param name="remote_control" type="string" value="0" comment="" />
+    </section>
+</content>

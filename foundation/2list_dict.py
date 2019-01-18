@@ -149,9 +149,27 @@ if __name__ == '__main__':
     # func_list()
     # func_tuple()
     # func_dict()
-    func_set()
+    # func_set()
 
     # print '==============range()经常和len()一起用于字符串索引================'
     # foo = 'abcd'
     # for i in range(len(foo)):
     #     print foo[i], '(%d)' % i
+
+    # seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+    # print type(enumerate(seasons))
+
+    x = [1, 2, 3]
+    y = [4, 5, 6]
+    zipped = zip(x, y)
+    print zipped
+    print zip(*zipped)
+
+    x2, y2 = zip(*zipped)
+    print x == list(x2) and y == list(y2)
+
+def enumerate(sequence, start=0):
+        n = start
+        for elem in sequence:
+            yield n, elem
+            n += 1

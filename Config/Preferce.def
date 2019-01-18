@@ -1,0 +1,3 @@
+setLogLevel('INFO', 'ALL')
+#setLogLevel('SHIELD', 'Console')
+#setLogLevel('ERROR', 'Console')

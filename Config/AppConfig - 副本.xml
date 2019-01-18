@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<content>
+    <section name="Product">
+        <param name="PRODUCT_NAME" type="string" value="SimuNE" comment="Product Name" />
+        <param name="VERSION" type="string" value="SimuNE V3R003C001" comment="Version" />
+        <param name="RELEASE_DATE" type="string" value="2019.1.18" comment="Release Date" />
+        <param name="dynamic_networking" type="string" value="0" comment="0表示不是动态组网，1表示使用，2表示不使用动态组网，但是保留控制器的功能" />
+        <param name="remote_control" type="string" value="0" comment="" />
+    </section>
+    <section name="Socket">
+        <param name="UIC_IP" type="string" value="" comment="user info ip" />
+        <param name="UIC_PORT" type="int" value="12345" comment="user info port" />
+        <param name="SOCKETUI_PORT" type="int" value="9306" comment="" />
+        <param name="6000" type="string" value="Platform.Channel.CMMLChannel" comment="" />
+        <param name="6001" type="string" value="Platform.Channel.CMMLChannel" comment="" />
+        <param name="6002" type="string" value="Platform.Channel.CMMLChannel" comment="" />
+        <param name="6006" type="string" value="Platform.Channel.CMMLChannel" comment="" />
+        <param name="6066" type="string" value="Platform.Channel.CMMLChannel" comment="" />
+        <param name="6007" type="string" value="Platform.Channel.CMMLChannel" comment="" />
+        <param name="6008" type="string" value="Platform.Channel.CMMLChannel" comment="" />
+        <param name="6010" type="string" value="Platform.Channel.CMMLChannel" comment="" />
+        <param name="6088" type="string" value="Platform.Channel.CMMLChannel" comment="" />
+        <param name="6099" type="string" value="Platform.Channel.CMMLChannel" comment="" />
+        <param name="16002" type="string" value="Platform.Channel.CMMLChannel" comment="" />
+        <param name="16006" type="string" value="Platform.Channel.CMMLChannel" comment="" />
+        <param name="6060" type="string" value="Platform.Channel.CSOAPChannel" comment="" />
+        <param name="161" type="string" value="Platform.Channel.CSNMPChannel" comment="" />
+        <param name="830" type="string" value="Platform.Channel.CNETCONFChannel" comment="" />
+        <param name="8000" type="string" value="Platform.Channel.CSNMPChannel" comment="" />
+        <param name="31296" type="string" value="Platform.Channel.CDTLSClientChannel" comment="" />
+    </section>
+    <section name="others">
+        <param name="RUNMODEL1" type="string" value="Simulate" comment="Simulator run model" />
+        <param name="RUNMODEL2" type="string" value="Proxy" comment="Simulator run model" />
+    </section>
+    <section name="SSL">
+        <param name="SSL_VERIFY_MODEL" type="int" value="-1" comment="0：匿名认证；1：OMC认证；2：网元认证；-1：不使用SSL" />
+        <param name="SSL_LOG_LEVEL" type="int" value="4" comment="0：no print；1：Debug；2：Info；3：Warning；4：Error；5：Critical；" />
+        <param name="SSL_CERFILE_DIR" type="string" value="./Config/App/cerFile" comment="" />
+        <param name="SSL_ROOTCA_FILE_NAME" type="string" value="RootCA.pem" comment="" />
+        <param name="SSL_CERTIFICATE_FILE_NAME" type="string" value="_ClientCer.pem" comment="" />
+        <param name="SSL_PRIVATEKEY_FILE_NAME" type="string" value="_ClientPrivKey.pem" comment="" />
+    </section>
+    <section name="database">
+        <param name="host" type="string" value="localhost" comment="host name" />
+        <param name="user" type="string" value="root" comment="login user name" />
+        <param name="pw" type="string" value="" comment="login password" />
+        <param name="type" type="string" value="CMysqlDB" comment="database class name" />
+        <param name="fmdatabase" type="string" value="mysql" comment="alarm database" />
+        <!--<param name="type" type="string" value="CFileDB" comment="database class name" />-->
+    </section>
+    <section name="logger">
+        <param name="ROTATING_FILE_MAXSIZE" type="int" value="10" comment="by 1M byte" />
+        <param name="ROTATING_FILE_NUMBER" type="int" value="2" comment="" />
+    </section>
+    <section name="threadpool">
+        <param name="MAX_MSG_THREAD_NUMBER" type="int" value="10000" comment="max thread numbers in CCmdRespondThreadPool" />
+        <param name="MAX_LONG_THREAD_NUMBER" type="int" value="10000" comment="max thread numbers in CPerformanceResultThreadPool" />
+    </section>
+    <section name="MsgQueue">
+        <param name="MAX_MSGCmdProcess__NUMBER_Level1" type="int" value="100" comment="max thread numbers in CCmdRespondThreadPool" />
+        <param name="MAX_MSGCmdProcess__NUMBER_Level2" type="int" value="100" comment="max thread numbers in CCmdRespondThreadPool" />
+        <param name="MAX_MSGCmdProcess__NUMBER_Level3" type="int" value="100" comment="max thread numbers in CPerformanceResultThreadPool" />
+    </section>
+    <section name="weBNic">
+        <param name="M2000LoginPassWord" type="string" value="Aa@111111" comment="webNic登录客户端密码" />
+    </section>
+    <section name="decrypt">
+        <param name="decryptM2KLoginPwd" type="string" value="Changeme_123" comment="MML加密ftp传输密码" />
+        <param name="sshM2KLoginPwd" type="string" value="0" comment="ssh密码" />
+    </section>
+    <section name="deleteFile">
+        <param name="saveTime" type="int" value="10800" comment="性能、Fars等文件保存一定时间后删除， 单位：秒" />
+    </section>
+    <section name="boardshare">
+        <param name="ramdiskpath" type="string" value="d:\\boardshare" comment="虚拟内存共享目录设置" />
+        <param name="createbatchnestatus" type="string" value="started" comment="批量创建网元修改网元ne.info中的启动状态" />
+    </section>
+    <section name="bondIPList">
+        <param name="IP_first" type="int" value="192" comment="小网IP的第一个段位" />
+        <param name="IP_second" type="int" value="199" comment="小网IP的第二个段位" />
+        <param name="IP_third_begin" type="int" value="1" comment="小网IP的第三个段位的起始IP" />
+        <param name="IP_third_end" type="int" value="4" comment="小网IP的第三个段位的结束IP" />
+        <param name="IP_fourth_begin" type="int" value="1" comment="小网IP的第四个段位的起始IP" />
+        <param name="IP_fourth_end" type="int" value="220" comment="小网IP的第四个段位的结束IP" />
+        <param name="IP_increase_No" type="int" value="1" comment="小网IP最后一个段位的自增数，决定了每个段位可以绑多少个小网IP" />
+        <param name="Netmask_No" type="string" value="255.255.254.0" comment="子网掩码" />
+        <param name="Port_beginNo" type="int" value="9301" comment="各个模拟器的端口号" />
+        <param name="bond_beginNo" type="int" value="1" comment="绑定小网IP的起始标号， eg:xxx:2" />
+        <param name="bond_No" type="string" value="bond0" comment="绑定小网IP的网卡名称， eg:bond1" />
+        <param name="NEVersion" type="string" value="BTS3900_LTE_V100R012C00SPC000B152_EN(F)" comment="创建网元的版本名称" />
+        <!--<param name="NEVersionNum" type="string" value="1000,2000" comment="创建网元的版本名称" />-->
+    </section>
+    <section name="ScenesName">
+        <!--按性能测试组要求增加的场景类型，PMScenes处于生效模式，以下功能才可实现MOIScenes模块除外-->
+        <param name="PMScenes" type="string" value="0" comment="性能测试组场景" />
+        <!--如果需要测试单独模块场景性能，请使用。比如要测试PM和CM的性能，只需要填入PM;CM,模拟器其他场景功能将会屏蔽，只让性能模块生效-->
+        <param name="SeminarScenes" type="string" value="None" comment="专项功能测试场景" />
+        <!--触发网元增量变更的必要条件不是：变更报文里的 __ProviousLabel 值和数据库里不连续并且 __commit 和 __Current 值为1-->
+        <param name="MOIScenes" type="string" value="0" comment="增量配置变更开关" />
+    </section>
+</content>

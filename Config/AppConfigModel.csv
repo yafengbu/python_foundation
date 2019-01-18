@@ -1,0 +1,6 @@
+FILE_NAME,FILE_CLASS,COMMENT
+NE_TYPE.csv,Common.CSVFile.CNETypeFile,所有网元版本的定义文件
+AppConfig.xml,Common.XMLFile.CAppConfigFile,模拟器的配置文件
+CoreConfig.xml,Common.XMLFile.CResponseTemplateFile,M2000最小系统的命令响应报文的内容的定义
+DHCPConfig.xml,NE.Secondary.DHCP.CDHCPConfigFile,DHCP配置文件
+HelpInfo.xml,Common.XMLFile.CHelpInfoFile,命令帮助文档

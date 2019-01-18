@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Commands>
+    <Command Name="displayNEVersion">
+        <function>显示模拟器支持的网元版本</function>
+        <Detail>
+            命令名：asfdhk
+            命令作用：asfs
+            命令原型：displayNEVersion(strVerKey=None)
+            参数说明：
+                strVerKey:
+        </Detail>
+    </Command>
+</Commands>

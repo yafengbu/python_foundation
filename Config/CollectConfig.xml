@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--提供对网元的垃圾清理的周期配置，对所有网元生效，暂且如下设置，以便支持后续扩展-->
+<Root>
+    <Configs>
+        <!--Alarm 设置为全部清除方式，PM.value 表示将 value 之前的文件清除（单位：秒）， FTP 同 PM-->
+        <Config name="PM">
+            <Parameter name="saveSec" value="3600" />
+        </Config>
+        <Config name="FTP">
+            <!--Fars, NIC-->
+            <Parameter name="saveSec" value="3600" />
+        </Config>
+    </Configs>
+</Root>
