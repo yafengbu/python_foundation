@@ -16,9 +16,6 @@ import os
 import copy
 import xml.etree.ElementTree as ET
 
-import CommonVariable
-import CommClass
-
 
 class CXMLFile():
     '''XML文件读取类， 实现XML文件读取为dict类型'''
@@ -36,7 +33,8 @@ class CXMLFile():
             self.__convertDomToDict()
         except:
             strErrorMsg = 'wrong xml format, file = %s' % self.strXMLPath
-            raise CommClass.RedefindException(1003, strErrorMsg)
+            print strErrorMsg
+            # raise CommClass.RedefindException(1003, strErrorMsg)
 
     def __convertDomToDict(self):
         if self.objDom:
@@ -111,8 +109,8 @@ class CXMLFile():
             listKey.append(strAttrName)
             return self.__getXMLAttribute(listKey)
         except:
-            gLogger = CommonVariable.gLogger
-            gLogger.coreError("Exception occured when get attribute from %s" % self.strXMLPath)
+            # gLogger = CommonVariable.gLogger
+            # gLogger.coreError("Exception occured when get attribute from %s" % self.strXMLPath)
             raise
 
     def getChildNameList(self, strXMLKey):
@@ -141,8 +139,8 @@ class CXMLFile():
             listKey.append("__attribute")
             return self.__getXMLAttribute(listKey)
         except:
-            gLogger = CommonVariable.gLogger
-            gLogger.coreError("Exception occured when get attribute from %s" % self.strXMLPath)
+            # gLogger = CommonVariable.gLogger
+            # gLogger.coreError("Exception occured when get attribute from %s" % self.strXMLPath)
             raise
 
     def getChildAttrList(self, strXMLKey):
@@ -153,113 +151,6 @@ class CXMLFile():
             dictAttr = CXMLFile.getAttributes(self, strChildXMLKey)
             listAttrs.append(dictAttr)
         return listAttrs
-
-
-class CAppConfigFile(CXMLFile):
-    def __init__(self, strXMLPath=None):
-        if strXMLPath is None:
-            strXMLPath = os.path.join(os.pardir, 'Config', 'AppConfig.xml')
-
-        CXMLFile.__init__(self, strXMLPath)
-
-    def getValue(self, strXmlKey):
-        dictAttrs = CXMLFile.getAttributes(self, 'content.' + strXmlKey)
-        if dictAttrs is None or not dictAttrs.has_key('type') or not dictAttrs.has_key('value'):
-            return None
-        strType = dictAttrs['type']
-        strValue = dictAttrs['value']
-        if strType == 'string':
-            strType = 'str'
-        strScript = '%s("%s")' % (strType, strValue)
-        return eval(strScript)
-
-    def setValue(self, strXmlKey, value):
-        strXmlList = strXmlKey.split('.')
-        currentDict = self.objDict.get('content')
-        for strxml in strXmlList:
-            if currentDict.has_key(strxml):
-                if type(currentDict[strxml]) == type({}):
-                    currentDict = currentDict[strxml]
-                    continue
-                else:
-                    currentDict[strxml] = value
-
-
-class CResponseTemplateFile(CXMLFile):
-    def __init__(self, strXMLPath):
-        CXMLFile.__init__(self, strXMLPath)
-
-    def getAttribute(self, strAttrKey, strAttrName):
-        return CXMLFile.getAttribute(self, "Root." + strAttrKey, strAttrName)
-
-    def getChildNameList(self, strXMLKey):
-        return CXMLFile.getChildNameList(self, "Root." + strXMLKey)
-
-    def getChildValueList(self, strXMLKey):
-        listValue = []
-        listName = CXMLFile.getChildNameList(self, "Root." + strXMLKey)
-        if listName is not None:
-            for strName in listName:
-                strValue = CXMLFile.getAttribute(self, "Root." + strXMLKey + "." + strName, "Value")
-            listValue.append(strValue)
-        return listValue
-
-    def getAttributes(self, strAttrKey):
-        return CXMLFile.getAttributes(self, "Root." + strAttrKey)
-
-    def getChildAttrList(self, strXMLKey):
-        return CXMLFile.getChildAttrList(self, "Root." + strXMLKey)
-
-    def getChildDict(self, strXMLKey):
-        try:
-            listChildAttr = self.getChildAttrList(strXMLKey)
-            dictChild = {}
-            for dictAttr in listChildAttr:
-                dictChild[dictAttr['Name']] = dictAttr['Value']
-            return dictChild
-        except:
-            gLogger = CommonVariable.gLogger
-            gLogger.coreError("Exception occured when getChildDict from %s" % self.strXMLPath)
-            raise
-
-
-class CCollectConfigFile(CXMLFile):
-    def __init__(self, strXMLPath=None):
-        if strXMLPath is None:
-            strXMLPath = os.path.join(os.pardir, 'Config', 'CollectConfig.xml')
-            CXMLFile.__init__(self, strXMLPath)
-
-    def getAttribute(self, strAttrKey, strAttrName):
-        return CXMLFile.getAttribute(self, "Root.Configs." + strAttrKey, strAttrName)
-
-
-class CHelpInfoFile(CXMLFile):
-    def __init__(self, strXMLPath=None):
-        if strXMLPath is None:
-            strXMLPath = os.path.join(os.pardir, 'Config', 'HelpInfo.xml')
-            CXMLFile.__init__(self, strXMLPath, True)
-
-    def getCmdNameList(self):
-        return CXMLFile.getChildNameList(self, 'Commands')
-
-    def getCmdFunction(self, strCmd):
-        function = CXMLFile.getAttribute(self, 'Commands.' + strCmd + '.Function', 'Value')
-        if function is None:
-            function = '<NULL>'
-        return function
-
-    def getCmdDetail(self, strCmd):
-        detail = CXMLFile.getAttribute(self, 'Commands.' + strCmd + '.Detail', 'Value')
-        if detail is None:
-            detail = '<NULL>'
-        return detail
-
-    def getCmdContent(self, strCmd):
-        content = CXMLFile.getAttribute(self, 'Commands.' + strCmd + '.Content', 'Value')
-        if content is None:
-            content = '<NULL>'
-        return content
-
 
 if __name__ == '__main__':
     strXMLPath = 'test_xml_1.xml'

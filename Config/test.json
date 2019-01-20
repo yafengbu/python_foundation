@@ -1,0 +1,92 @@
+{
+  'content': {
+    '__childNameList': [
+      'Product',
+      'Socket',
+      'others'
+    ],
+    'others': {
+      'RUNMODEL1': {
+        '__childNameList': [],
+        '__attribute': {
+          'comment': 'Simulator run model',
+          'type': 'string',
+          'name': 'RUNMODEL1',
+          'value': 'Simulate'
+        }
+      },
+      '__childNameList': [
+        'RUNMODEL1',
+        'RUNMODEL2'
+      ],
+      '__attribute': {
+        'name': 'others'
+      },
+      'RUNMODEL2': {
+        '__childNameList': [],
+        '__attribute': {
+          'comment': 'Simulator run model',
+          'type': 'string',
+          'name': 'RUNMODEL2',
+          'value': 'Proxy'
+        }
+      }
+    },
+    '__attribute': {},
+    'Socket': {
+      'UIC_IP': {
+        '__childNameList': [],
+        '__attribute': {
+          'comment': 'user info ip',
+          'type': 'string',
+          'name': 'UIC_IP',
+          'value': ''
+        }
+      },
+      '__childNameList': [
+        'UIC_IP',
+        'UIC_PORT'
+      ],
+      '__attribute': {
+        'name': 'Socket'
+      },
+      'UIC_PORT': {
+        '__childNameList': [],
+        '__attribute': {
+          'comment': 'user info port',
+          'type': 'int',
+          'name': 'UIC_PORT',
+          'value': '12345'
+        }
+      }
+    },
+    'Product': {
+      '__childNameList': [
+        'PRODUCT_NAME',
+        'VERSION'
+      ],
+      'VERSION': {
+        '__childNameList': [],
+        '__attribute': {
+          'comment': 'Version',
+          'type': 'string',
+          'name': 'VERSION',
+          'value': 'SimuNE V3R003C001'
+        }
+      },
+      '__attribute': {
+        'name': 'Product'
+      },
+      'PRODUCT_NAME': {
+        '__childNameList': [],
+        '__attribute': {
+          'comment': 'Product Name',
+          'type': 'string',
+          'name': 'PRODUCT_NAME',
+          'value': 'SimuNE'
+        }
+      }
+    }
+  },
+  '__attribute': {}
+}

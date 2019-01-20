@@ -13,6 +13,7 @@
 """
 
 import os
+import sys
 import copy
 import xml.etree.ElementTree as ET
 
@@ -32,24 +33,30 @@ class CXMLFile():
 
     def read(self):
         try:
-            self.objDom = ET.parse(self.strXMLPath)
+            self.objDom_new = ET.parse(self.strXMLPath)
             self.__convertDomToDict()
+            del self.objDom
+            self.objDom = None
         except:
             strErrorMsg = 'wrong xml format, file = %s' % self.strXMLPath
             raise CommClass.RedefindException(1003, strErrorMsg)
 
-    def __convertDomToDict(self):
-        if self.objDom:
-            elementNode = self.objDom.getroot()
+    def __convertDomToDict_new(self):
+        if self.objDom_new:
+            elementNode = self.objDom_new.getroot()
             self.objDict["__attribute"] = elementNode.attrib
-
-            strName = elementNode.get('name')
+            strName = elementNode.get('Name')
             if not strName:
                 strName = elementNode.tag
             self.objDict[strName] = {}
-            self.__convertDomNodetoDictNode(elementNode, self.objDict[strName])
 
-    def __convertDomNodetoDictNode(self, domNode, dictNode):
+            self.__convertDomToDict_new(elementNode, self.objDict[strName])
+
+    def __convertDomToDict(self):
+        if self.objDom is not None:
+            self.__convertDomNodetoDictNode(self.objDom, self.objDict)
+
+    def __convertDomNodetoDictNode_new(self, domNode, dictNode):
         # 属性
         dictAttribute = {}
         dictAttribute.update(domNode.attrib)
@@ -63,13 +70,41 @@ class CXMLFile():
             if strName is None:
                 strName = subDomNode.tag
             subDictNode = {}
-            self.__convertDomNodetoDictNode(subDomNode, subDictNode)
+            self.__convertDomNodetoDictNode_new(subDomNode, subDictNode)
             dictNode[strName] = subDictNode
             dictNode['__childNameList'].append(strName)
 
             # 如果值是写在中间的，如：<item>fjsk</item>
             if self.bLoadTextFiled and subDomNode.text:
                 dictNode['__attribute']['Value'] = subDomNode.text
+
+    def __convertDomNodetoDictNode(self, domNode, dictNode):
+        # 属性
+        if domNode.nodeType == xml.dom.minidom.Node.ELEMENT_NODE:
+            dictAttribute = {}
+            for (strAttrName, objAttr) in domNode._attrs.items():
+                dictAttribute[strAttrName] = objAttr.value
+            dictNode['__attribute'] = dictAttribute
+            print dictAttribute, '------------------'
+
+        # 孩子
+        dictNode['__childNameList'] = []
+        for subDomNode in domNode.childNodes:
+            if subDomNode.nodeType == xml.dom.minidom.Node.ELEMENT_NODE:
+                strName = subDomNode.getAttribute('Name')
+                if strName == '':
+                    strName = subDomNode.getAttribute('name')
+                if strName == '':
+                    strName = subDomNode.tagName
+                subDomNode = {}
+                self.__convertDomNodetoDictNode()
+                dictNode[strName] = subDomNode
+                dictNode['__childNameList'].append(strName)
+
+                # 如果值是写在中间的，如：<item>fjsk</item>
+                if self.bLoadTextFiled and subDomNode.nodeType == xml.dom.minidom.Node.TEXT_NODE:
+                    if subDomNode.data != '':
+                        dictNode['__attribute']['Value'] = subDomNode.data
 
     def __getXMLAttribute(self, listKey):
         # 查找
@@ -91,7 +126,6 @@ class CXMLFile():
             return None
 
     def write(self):
-        # self.objDom.write('output.xml', encoding='utf-8')
         pass
 
     def getAttribute(self, strAttrKey, strAttrName):
@@ -107,9 +141,11 @@ class CXMLFile():
             listTemp = strAttrKey.split('.')
             for strKey in listTemp:
                 listKey.append(strKey)
-            listKey.append("__attribute")
-            listKey.append(strAttrName)
-            return self.__getXMLAttribute(listKey)
+                listKey.append("__attribute")
+                listKey.append(strAttrName)
+                print listKey
+                return
+            self.__getXMLAttribute(listKey)
         except:
             gLogger = CommonVariable.gLogger
             gLogger.coreError("Exception occured when get attribute from %s" % self.strXMLPath)
@@ -125,8 +161,9 @@ class CXMLFile():
             listTemp = strXMLKey.split('.')
             for strKey in listTemp:
                 listKey.append(strKey)
-            listKey.append("__childNameList")
-            return self.__getXMLAttribute(listKey)
+                listKey.append("__childNameList")
+                return
+            self.__getXMLAttribute(listKey)
         except:
             gLogger = CommonVariable.gLogger
             gLogger.coreError("Exception occured when get child from %s" % self.strXMLPath)
@@ -138,8 +175,9 @@ class CXMLFile():
             listTemp = strAttrKey.split('.')
             for strKey in listTemp:
                 listKey.append(strKey)
-            listKey.append("__attribute")
-            return self.__getXMLAttribute(listKey)
+                listKey.append("__attribute")
+                return
+            self.__getXMLAttribute(listKey)
         except:
             gLogger = CommonVariable.gLogger
             gLogger.coreError("Exception occured when get attribute from %s" % self.strXMLPath)
@@ -195,13 +233,14 @@ class CResponseTemplateFile(CXMLFile):
     def getChildNameList(self, strXMLKey):
         return CXMLFile.getChildNameList(self, "Root." + strXMLKey)
 
-    def getChildValueList(self, strXMLKey):
+    def getChildAttrList(self, strXMLKey):
         listValue = []
         listName = CXMLFile.getChildNameList(self, "Root." + strXMLKey)
         if listName is not None:
             for strName in listName:
                 strValue = CXMLFile.getAttribute(self, "Root." + strXMLKey + "." + strName, "Value")
-            listValue.append(strValue)
+
+                listValue.append(strValue)
         return listValue
 
     def getAttributes(self, strAttrKey):
@@ -262,20 +301,8 @@ class CHelpInfoFile(CXMLFile):
 
 
 if __name__ == '__main__':
-    strXMLPath = 'test_xml_1.xml'
-    print '===============test for XMLFile:'
-    gAppconfig = CXMLFile(strXMLPath)
-    strXmlKey = 'content.Product'
-    print gAppconfig.getChildNameList(strXmlKey)
-    print gAppconfig.getChildAttrList(strXmlKey)
-
-    strAttrKey = 'content.Product.PRODUCT_NAME'
-    strAttrName = 'value'
-    print gAppconfig.getAttributes(strAttrKey)
-    print gAppconfig.getAttribute(strAttrKey, strAttrName)
-
-    print '===============test for CAppConfigFile:'
-    gAppconfig = CAppConfigFile(strXMLPath)
-    strXmlKey = 'Product.PRODUCT_NAME'
-    print gAppconfig.getValue(strXmlKey)
-    gAppconfig.setValue(strXmlKey, 'SimuNEFJKD')
+    pass
+    # strXMLPath = os.path.join(os.getcwd(), os.pardir, os.pardir, 'Config', 'AppConfig.xml')
+    # print strXMLPath
+    # print os.path.exists(strXMLPath)
+    # xml = CXMLFile(strXMLPath)

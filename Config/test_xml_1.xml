@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<content>
+    <section name="Product">
+        <param name="PRODUCT_NAME" type="string" value="SimuNE" comment="Product Name" />
+        <param name="VERSION" type="string" value="SimuNE V3R003C001" comment="Version" />
+    </section>
+    <section name="Socket">
+        <param name="UIC_IP" type="string" value="" comment="user info ip" />
+        <param name="UIC_PORT" type="int" value="12345" comment="user info port" />
+    </section>
+    <section name="others">
+        <param name="RUNMODEL1" type="string" value="Simulate" comment="Simulator run model" />
+        <param name="RUNMODEL2" type="string" value="Proxy" comment="Simulator run model" />
+    </section>
+</content>

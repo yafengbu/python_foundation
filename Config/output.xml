@@ -1,0 +1,14 @@
+<content>
+    <section name="Product">
+        <param comment="Product Name" name="PRODUCT_NAME" type="string" value="SimuNE" />
+        <param comment="Version" name="VERSION" type="string" value="SimuNE V3R003C001" />
+    </section>
+    <section name="Socket">
+        <param comment="user info ip" name="UIC_IP" type="string" value="" />
+        <param comment="user info port" name="UIC_PORT" type="int" value="12345" />
+    </section>
+    <section name="others">
+        <param comment="Simulator run model" name="RUNMODEL1" type="string" value="Simulate" />
+        <param comment="Simulator run model" name="RUNMODEL2" type="string" value="Proxy" />
+    </section>
+</content>
